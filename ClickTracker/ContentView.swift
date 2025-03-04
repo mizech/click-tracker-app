@@ -2,23 +2,45 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isSettingsShown = false
+    @AppStorage("counter") private var counter = 0
+    @AppStorage("unit") private var entityName = "Objects"
+    @AppStorage("step") private var step = 1
     
     var body: some View {
         NavigationStack {
             TabView {
                 VStack {
-                    Text("X units of Y")
-                        .font(.largeTitle)
+                    Text(String(counter))
+                        .font(.system(size: 48))
+                    Text("\(entityName)")
+                        .font(.system(size: 32))
                     Spacer()
-                    LargeButtonView(caption: "Increment", sysImg: "plus", bgColor: .blue) {
-                        
+                    LargeButtonView(
+                        counter: $counter,
+                        caption: "\(step)",
+                        sysImg: "plus",
+                        bgColor: .blue
+                    ) {
+                        counter += step
                     }.padding(.bottom)
-                    LargeButtonView(caption: "Decrement", sysImg: "minus", bgColor: .orange) {
-                        
-                    }
-                    Spacer()
-                    LargeButtonView(caption: "Create note", sysImg: "note.text.badge.plus", bgColor: .green) {
-                        
+                    LargeButtonView(
+                        counter: $counter,
+                        caption: "\(step)",
+                        sysImg: "minus",
+                        bgColor: .orange
+                    ) {
+                        guard counter - step >= 0 else {
+                            return
+                        }
+                        counter -= step
+                    }.padding(.bottom, 25)
+                    LargeButtonView(
+                        counter: $counter,
+                        caption: "Reset",
+                        sysImg: "0.circle",
+                        bgColor: .red
+                    ) {
+                        counter = 0
                     }
                     Spacer()
                 }
@@ -32,13 +54,32 @@ struct ContentView: View {
                     Label("Notes", systemImage: "note.text")
                 }
             }.toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") {
                         isSettingsShown.toggle()
                     }
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Create note", systemImage: "note.text.badge.plus") {
+                        isSettingsShown.toggle()
+                    }
+                }
             }.sheet(isPresented: $isSettingsShown) {
-                Text("Settings")
+                NavigationStack {
+                    Form {
+                        Section("Step length") {
+                            TextField("Enter step length", value: $step, format: .number)
+                                .keyboardType(.numberPad)
+                                .font(.title)
+                        }
+                    }.toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Close", systemImage: "star") {
+                                isSettingsShown.toggle()
+                            }
+                        }
+                    }
+                }
             }
         }
     }

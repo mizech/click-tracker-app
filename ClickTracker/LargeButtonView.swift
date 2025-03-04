@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct LargeButtonView: View {
+    @Binding var counter: Int
+    
     var caption: String
     var sysImg: String
     var bgColor: Color
@@ -8,7 +10,7 @@ struct LargeButtonView: View {
     
     var body: some View {
         Button {
-            
+            action()
         } label: {
             Label(caption, systemImage: sysImg)
                 .padding()
@@ -22,5 +24,10 @@ struct LargeButtonView: View {
 }
 
 #Preview {
-    LargeButtonView(caption: "Caption", sysImg: "plus", bgColor: .green) {}
+    LargeButtonView(
+        counter: .constant(1),
+        caption: "Caption",
+        sysImg: "plus",
+        bgColor: .green
+    ) {}
 }
