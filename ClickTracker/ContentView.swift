@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  ClickTracker
-//
-//  Created by Michael on 04.03.25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
