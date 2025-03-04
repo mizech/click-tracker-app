@@ -1,10 +1,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isSettingsShown = false
     @AppStorage("counter") private var counter = 0
     @AppStorage("unit") private var entityName = "Objects"
     @AppStorage("step") private var step = 1
+    
+    @State private var isSettingsShown = false
+    @State private var isConfirmShown = false
     
     var body: some View {
         NavigationStack {
@@ -33,14 +35,15 @@ struct ContentView: View {
                             return
                         }
                         counter -= step
-                    }.padding(.bottom, 25)
+                    }
+                    Spacer()
                     LargeButtonView(
                         counter: $counter,
                         caption: "Reset",
                         sysImg: "0.circle",
                         bgColor: .red
                     ) {
-                        counter = 0
+                        isConfirmShown.toggle()
                     }
                     Spacer()
                 }
@@ -53,7 +56,8 @@ struct ContentView: View {
                 }.tabItem {
                     Label("Notes", systemImage: "note.text")
                 }
-            }.toolbar {
+            }
+            .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") {
                         isSettingsShown.toggle()
@@ -79,6 +83,16 @@ struct ContentView: View {
                             }
                         }
                     }
+                }
+            }.confirmationDialog(
+                "Are you sure?",
+                isPresented: $isConfirmShown
+            ) {
+                Button("Reset counter", role: .destructive) {
+                    counter = 0
+                }
+                Button("Cancel", role: .cancel) {
+                    isConfirmShown.toggle()
                 }
             }
         }
