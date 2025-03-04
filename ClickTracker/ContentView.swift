@@ -7,8 +7,23 @@ struct ContentView: View {
         NavigationStack {
             TabView {
                 VStack {
-                    
-                }.tabItem {
+                    Text("X units of Y")
+                        .font(.largeTitle)
+                    Spacer()
+                    LargeButtonView(caption: "Increment", sysImg: "plus", bgColor: .blue) {
+                        
+                    }.padding(.bottom)
+                    LargeButtonView(caption: "Decrement", sysImg: "minus", bgColor: .orange) {
+                        
+                    }
+                    Spacer()
+                    LargeButtonView(caption: "Create note", sysImg: "note.text.badge.plus", bgColor: .green) {
+                        
+                    }
+                    Spacer()
+                }
+                .padding()
+                .tabItem {
                     Label("Clicker", systemImage: "hand.tap.fill")
                 }
                 List {
