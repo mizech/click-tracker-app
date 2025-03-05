@@ -64,12 +64,14 @@ struct ContentView: View {
             }.sheet(isPresented: $isSettingsShown) {
                 NavigationStack {
                     Form {
+                        Section("Object name") {
+                            TextField("", text: $entityName)
+                        }
+                        
                         Section("Step length") {
                             TextField("Enter step length", value: $step, format: .number)
                                 .keyboardType(.numberPad)
                                 .font(.title)
-//                            TextField("Enter object name/description", value: $entityName)
-//                                .font(.title)
                         }
                         
                         Section("Actions") {
@@ -105,21 +107,16 @@ struct ContentView: View {
                 Button("Reset counter", role: .destructive) {
                     counter = 0
                 }
-                Button("Cancel", role: .cancel) {
-                    isCounterResetConfirmShown.toggle()
-                }
+                Button("Cancel", role: .cancel) {}
             }.confirmationDialog(
                 "Are you sure?",
                 isPresented: $isSettingsResetConfirmShown
             ) {
                 Button("Reset settings", role: .destructive) {
-                    counter = 0
                     entityName = "Objects"
                     step = 1
                 }
-                Button("Cancel", role: .cancel) {
-                    isSettingsResetConfirmShown.toggle()
-                }
+                Button("Cancel", role: .cancel) {}
             }
         }
     }
