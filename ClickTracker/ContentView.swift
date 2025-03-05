@@ -6,7 +6,8 @@ struct ContentView: View {
     @AppStorage("step") private var step = 1
     
     @State private var isSettingsShown = false
-    @State private var isConfirmShown = false
+    @State private var isCounterResetConfirmShown = false
+    @State private var isSettingsResetConfirmShown = false
     
     var body: some View {
         NavigationStack {
@@ -29,7 +30,7 @@ struct ContentView: View {
                         counter: $counter,
                         caption: "\(step)",
                         sysImg: "minus",
-                        bgColor: .orange
+                        bgColor: .cyan
                     ) {
                         guard counter - step >= 0 else {
                             return
@@ -37,15 +38,7 @@ struct ContentView: View {
                         counter -= step
                     }
                     Spacer()
-                    LargeButtonView(
-                        counter: $counter,
-                        caption: "Reset",
-                        sysImg: "0.circle",
-                        bgColor: .red
-                    ) {
-                        isConfirmShown.toggle()
-                    }
-                    Spacer()
+                    
                 }
                 .padding()
                 .tabItem {
@@ -65,7 +58,7 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Create note", systemImage: "note.text.badge.plus") {
-                        isSettingsShown.toggle()
+                        
                     }
                 }
             }.sheet(isPresented: $isSettingsShown) {
@@ -75,10 +68,31 @@ struct ContentView: View {
                             TextField("Enter step length", value: $step, format: .number)
                                 .keyboardType(.numberPad)
                                 .font(.title)
+//                            TextField("Enter object name/description", value: $entityName)
+//                                .font(.title)
+                        }
+                        
+                        Section("Actions") {
+                            LargeButtonView(
+                                counter: $counter,
+                                caption: "Reset counter",
+                                sysImg: "0.circle",
+                                bgColor: .orange
+                            ) {
+                                isCounterResetConfirmShown.toggle()
+                            }
+                            LargeButtonView(
+                                counter: $counter,
+                                caption: "Reset settings",
+                                sysImg: "bolt.trianglebadge.exclamationmark",
+                                bgColor: .red
+                            ) {
+                                isSettingsResetConfirmShown.toggle()
+                            }
                         }
                     }.toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
-                            Button("Close", systemImage: "star") {
+                            Button("Close", systemImage: "xmark.circle") {
                                 isSettingsShown.toggle()
                             }
                         }
@@ -86,13 +100,25 @@ struct ContentView: View {
                 }
             }.confirmationDialog(
                 "Are you sure?",
-                isPresented: $isConfirmShown
+                isPresented: $isCounterResetConfirmShown
             ) {
                 Button("Reset counter", role: .destructive) {
                     counter = 0
                 }
                 Button("Cancel", role: .cancel) {
-                    isConfirmShown.toggle()
+                    isCounterResetConfirmShown.toggle()
+                }
+            }.confirmationDialog(
+                "Are you sure?",
+                isPresented: $isSettingsResetConfirmShown
+            ) {
+                Button("Reset settings", role: .destructive) {
+                    counter = 0
+                    entityName = "Objects"
+                    step = 1
+                }
+                Button("Cancel", role: .cancel) {
+                    isSettingsResetConfirmShown.toggle()
                 }
             }
         }
