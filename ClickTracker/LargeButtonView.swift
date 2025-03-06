@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LargeButtonView: View {
-    @Binding var counter: Int
+    @Binding var counter: Double
     
     var caption: String
     var sysImg: String

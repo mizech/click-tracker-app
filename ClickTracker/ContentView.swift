@@ -1,26 +1,31 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("counter") private var counter = 0
+    @AppStorage("counter") private var counter: Double = 0
     @AppStorage("unit") private var entityName = "Objects"
-    @AppStorage("step") private var step = 1
+    @AppStorage("step") private var step = 1.0
     
     @State private var isSettingsShown = false
     @State private var isCounterResetConfirmShown = false
-    @State private var isSettingsResetConfirmShown = false
+    
+    let numFormatter = NumberFormatter()
+    
+    init() {
+        numFormatter.numberStyle = .decimal
+    }
     
     var body: some View {
         NavigationStack {
             TabView {
                 VStack {
-                    Text(String(counter))
+                    Text(String(format: "%.2f", counter))
                         .font(.system(size: 48))
                     Text("\(entityName)")
                         .font(.system(size: 32))
                     Spacer()
                     LargeButtonView(
                         counter: $counter,
-                        caption: "\(step)",
+                        caption: String(format: "%.2f", step),
                         sysImg: "plus",
                         bgColor: .blue
                     ) {
@@ -28,7 +33,7 @@ struct ContentView: View {
                     }.padding(.bottom)
                     LargeButtonView(
                         counter: $counter,
-                        caption: "\(step)",
+                        caption: String(format: "%.2f", step),
                         sysImg: "minus",
                         bgColor: .cyan
                     ) {
@@ -52,6 +57,11 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
+                    Button("Reset count", systemImage: "0.circle") {
+                        isCounterResetConfirmShown.toggle()
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") {
                         isSettingsShown.toggle()
                     }
@@ -69,28 +79,13 @@ struct ContentView: View {
                         }
                         
                         Section("Step length") {
-                            TextField("Enter step length", value: $step, format: .number)
-                                .keyboardType(.numberPad)
+                            TextField(
+                                "Enter step length",
+                                value: $step,
+                                formatter: numFormatter
+                            )
+                                .keyboardType(.decimalPad)
                                 .font(.title)
-                        }
-                        
-                        Section("Actions") {
-                            LargeButtonView(
-                                counter: $counter,
-                                caption: "Reset counter",
-                                sysImg: "0.circle",
-                                bgColor: .orange
-                            ) {
-                                isCounterResetConfirmShown.toggle()
-                            }
-                            LargeButtonView(
-                                counter: $counter,
-                                caption: "Reset settings",
-                                sysImg: "bolt.trianglebadge.exclamationmark",
-                                bgColor: .red
-                            ) {
-                                isSettingsResetConfirmShown.toggle()
-                            }
                         }
                     }.toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
@@ -106,15 +101,6 @@ struct ContentView: View {
             ) {
                 Button("Reset counter", role: .destructive) {
                     counter = 0
-                }
-                Button("Cancel", role: .cancel) {}
-            }.confirmationDialog(
-                "Are you sure?",
-                isPresented: $isSettingsResetConfirmShown
-            ) {
-                Button("Reset settings", role: .destructive) {
-                    entityName = "Objects"
-                    step = 1
                 }
                 Button("Cancel", role: .cancel) {}
             }
