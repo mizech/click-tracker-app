@@ -78,29 +78,11 @@ struct ContentView: View {
                     }
                 }
             }.sheet(isPresented: $isSettingsShown) {
-                NavigationStack {
-                    Form {
-                        Section("Object name") {
-                            TextField("", text: $entityName)
-                        }
-                        
-                        Section("Step length") {
-                            TextField(
-                                "Enter step length",
-                                value: $step,
-                                formatter: numFormatter
-                            )
-                                .keyboardType(.decimalPad)
-                                .font(.title)
-                        }
-                    }.toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button("Close", systemImage: "xmark.circle") {
-                                isSettingsShown.toggle()
-                            }
-                        }
-                    }
-                }
+                SettingsView(
+                    isSettingsShown: $isSettingsShown,
+                    step: $step,
+                    entityName: $entityName
+                )
             }.confirmationDialog(
                 "Are you sure?",
                 isPresented: $isCounterResetConfirmShown
