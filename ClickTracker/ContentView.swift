@@ -12,6 +12,7 @@ struct ContentView: View {
     
     init() {
         numFormatter.numberStyle = .decimal
+        UITextField.appearance().clearButtonMode = .whileEditing
     }
     
     var body: some View {
@@ -55,6 +56,11 @@ struct ContentView: View {
                     Label("Notes", systemImage: "note.text")
                 }
             }
+            .onChange(of: step, { oldValue, newValue in
+                if newValue <= 0 {
+                    step = oldValue
+                }
+            })
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Reset count", systemImage: "0.circle") {
