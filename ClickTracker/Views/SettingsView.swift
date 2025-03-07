@@ -11,7 +11,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section("Object name") {
-                    TextField("", text: $entityName)
+                    TextField("Name/describe the counted objects", text: $entityName)
                 }
                 
                 Section("Step length") {
@@ -29,7 +29,7 @@ struct SettingsView: View {
                         isSettingsShown.toggle()
                     }
                 }
-            }
+            }.navigationTitle("Settings")
         }.onAppear() {
             numFormatter.numberStyle = .decimal
         }

@@ -85,7 +85,7 @@ struct ContentView: View {
                     entityName: $entityName
                 )
             }.sheet(isPresented: $isInsertNoteSheetShown, content: {
-                Text("Insert Note")
+                InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown)
             })
             .confirmationDialog(
                 "Are you sure?",
