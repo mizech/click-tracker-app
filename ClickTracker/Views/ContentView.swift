@@ -74,6 +74,13 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        NotesListView()
+                    } label: {
+                        Label("Create note", systemImage: "note.text")
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Create note", systemImage: "note.text.badge.plus") {
                         isInsertNoteSheetShown.toggle()
                     }
