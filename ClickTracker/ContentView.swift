@@ -5,7 +5,8 @@ struct ContentView: View {
     @AppStorage("unit") private var entityName = "Objects"
     @AppStorage("step") private var step = 1.0
     
-    @State private var isSettingsShown = false
+    @State private var isSettingsSheetShown = false
+    @State private var isInsertNoteSheetShown = false
     @State private var isCounterResetConfirmShown = false
     
     let numFormatter = NumberFormatter()
@@ -69,21 +70,24 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Settings", systemImage: "gear") {
-                        isSettingsShown.toggle()
+                        isSettingsSheetShown.toggle()
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Create note", systemImage: "note.text.badge.plus") {
-                        
+                        isInsertNoteSheetShown.toggle()
                     }
                 }
-            }.sheet(isPresented: $isSettingsShown) {
+            }.sheet(isPresented: $isSettingsSheetShown) {
                 SettingsView(
-                    isSettingsShown: $isSettingsShown,
+                    isSettingsShown: $isSettingsSheetShown,
                     step: $step,
                     entityName: $entityName
                 )
-            }.confirmationDialog(
+            }.sheet(isPresented: $isInsertNoteSheetShown, content: {
+                Text("Insert Note")
+            })
+            .confirmationDialog(
                 "Are you sure?",
                 isPresented: $isCounterResetConfirmShown
             ) {
