@@ -4,6 +4,7 @@ struct ContentView: View {
     @AppStorage("counter") private var counter: Double = 0
     @AppStorage("entityName") private var entityName = "Objects"
     @AppStorage("step") private var step = 1.0
+    @Environment(\.modelContext) var context
     
     @State private var isSettingsSheetShown = false
     @State private var isInsertNoteSheetShown = false
@@ -67,6 +68,15 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
+                    Button("Delete notes", systemImage: "trash.circle") {
+                        do {
+                            try context.delete(model: Note.self)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Settings", systemImage: "gear") {
                         isSettingsSheetShown.toggle()
                     }
