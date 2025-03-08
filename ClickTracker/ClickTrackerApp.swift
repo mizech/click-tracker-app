@@ -1,10 +1,4 @@
-//
-//  ClickTrackerApp.swift
-//  ClickTracker
-//
-//  Created by Michael on 04.03.25.
-//
-
+import SwiftData
 import SwiftUI
 
 @main
@@ -12,6 +6,7 @@ struct ClickTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for: [Note.self])
         }
     }
 }

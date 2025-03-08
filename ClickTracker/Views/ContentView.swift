@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("counter") private var counter: Double = 0
-    @AppStorage("unit") private var entityName = "Objects"
+    @AppStorage("entityName") private var entityName = "Objects"
     @AppStorage("step") private var step = 1.0
     
     @State private var isSettingsSheetShown = false
@@ -51,9 +51,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Clicker", systemImage: "hand.tap.fill")
                 }
-                List {
-                    
-                }.tabItem {
+                NotesListView().tabItem {
                     Label("Notes", systemImage: "note.text")
                 }
             }
@@ -74,13 +72,6 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        NotesListView()
-                    } label: {
-                        Label("Create note", systemImage: "note.text")
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
                     Button("Create note", systemImage: "note.text.badge.plus") {
                         isInsertNoteSheetShown.toggle()
                     }
@@ -92,7 +83,7 @@ struct ContentView: View {
                     entityName: $entityName
                 )
             }.sheet(isPresented: $isInsertNoteSheetShown, content: {
-                InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown)
+                InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown, counter: counter)
             })
             .confirmationDialog(
                 "Are you sure?",

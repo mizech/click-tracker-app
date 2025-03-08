@@ -1,8 +1,12 @@
 import SwiftUI
 
 struct InsertNoteView: View {
+    @Environment(\.modelContext) var context
+    @AppStorage("entityName") private var entityName = "Objects"
     @Binding var isInsertNoteSheetShown: Bool
     @State var currText = ""
+    
+    var counter: Double
     
     var body: some View {
         NavigationStack {
@@ -12,6 +16,13 @@ struct InsertNoteView: View {
                 }
                 Section {
                     Button {
+                        context.insert(
+                            Note(
+                                text: currText,
+                                counter: counter,
+                                entityName: entityName
+                            )
+                        )
                         isInsertNoteSheetShown.toggle()
                     } label: {
                         Text("Submit")
@@ -38,5 +49,8 @@ struct InsertNoteView: View {
 }
 
 #Preview {
-    InsertNoteView(isInsertNoteSheetShown: .constant(false))
+    InsertNoteView(
+        isInsertNoteSheetShown: .constant(false),
+        counter: 8.0
+    )
 }
