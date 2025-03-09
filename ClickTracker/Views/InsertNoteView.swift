@@ -2,7 +2,7 @@ import SwiftUI
 
 struct InsertNoteView: View {
     @Environment(\.modelContext) var context
-    @AppStorage("entityName") private var entityName = "Objects"
+    @AppStorage("unit") private var unit = "Objects"
     @Binding var isInsertNoteSheetShown: Bool
     @State var currText = ""
     
@@ -20,7 +20,7 @@ struct InsertNoteView: View {
                             Note(
                                 text: currText,
                                 counter: counter,
-                                entityName: entityName
+                                unit: unit
                             )
                         )
                         isInsertNoteSheetShown.toggle()

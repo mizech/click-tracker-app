@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("counter") private var counter: Double = 0
-    @AppStorage("entityName") private var entityName = "Objects"
+    @AppStorage("unit") private var unit = "Objects"
     @AppStorage("step") private var step = 1.0
     @Environment(\.modelContext) var context
     
@@ -10,21 +10,11 @@ struct ContentView: View {
     @State private var isInsertNoteSheetShown = false
     @State private var isCounterResetConfirmShown = false
     
-    let numFormatter = NumberFormatter()
-    
-    init() {
-        numFormatter.numberStyle = .decimal
-        UITextField.appearance().clearButtonMode = .whileEditing
-    }
-    
     var body: some View {
         NavigationStack {
             TabView {
-                VStack {
-                    Text(String(format: "%.2f", counter))
-                        .font(.system(size: 48))
-                    Text("\(entityName)")
-                        .font(.system(size: 32))
+                VStack { 
+                    Text("^[\(counter, specifier: "%.2f") \(unit)](inflect: true)").font(.largeTitle)
                     Spacer()
                     LargeButtonView(
                         counter: $counter,
@@ -90,7 +80,7 @@ struct ContentView: View {
                 SettingsView(
                     isSettingsShown: $isSettingsSheetShown,
                     step: $step,
-                    entityName: $entityName
+                    unit: $unit
                 )
             }.sheet(isPresented: $isInsertNoteSheetShown, content: {
                 InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown, counter: counter)

@@ -3,16 +3,20 @@ import SwiftUI
 
 struct NotesListView: View {
     @Environment(\.modelContext) var context
-    @AppStorage("entityName") private var entityName = "Objects"
+    @AppStorage("unit") private var unit = "Objects"
     @Query(sort: \Note.createdAt) var notes: [Note]
     
     var body: some View {
         List {
             ForEach(notes) { note in
-                HStack {
-                    Text(note.createdAt, format: .dateTime)
-                        .bold()
-                    Text("\(note.counter) \(note.entityName)")
+                NavigationLink {
+                    NoteDetailsView()
+                } label: {
+                    HStack {
+                        Text(note.createdAt, format: .dateTime)
+                            .bold()
+                        Text("^[\(note.counter) \(note.unit)](inflect: true)")
+                    }
                 }
             }.onDelete { indexSet in
                 for index in indexSet {
