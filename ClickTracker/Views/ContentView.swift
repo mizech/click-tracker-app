@@ -36,7 +36,15 @@ struct ContentView: View {
                         counter -= step
                     }
                     Spacer()
-                    
+                    LargeButtonView(
+                        counter: $counter,
+                        caption: "Add note",
+                        sysImg: "note.text.badge.plus",
+                        bgColor: .orange
+                    ) {
+                        isInsertNoteSheetShown.toggle()
+                    }
+                    Spacer()
                 }
                 .padding()
                 .tabItem {
@@ -69,11 +77,6 @@ struct ContentView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Settings", systemImage: "gear") {
                         isSettingsSheetShown.toggle()
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Create note", systemImage: "note.text.badge.plus") {
-                        isInsertNoteSheetShown.toggle()
                     }
                 }
             }.sheet(isPresented: $isSettingsSheetShown) {
