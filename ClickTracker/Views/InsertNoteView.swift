@@ -32,7 +32,7 @@ struct InsertNoteView: View {
                             .background(.blue)
                             .foregroundStyle(.white)
                             .bold()
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .roundedCorners()
                     }
                 }
             }

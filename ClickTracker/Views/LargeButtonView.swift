@@ -18,7 +18,7 @@ struct LargeButtonView: View {
                 .background(bgColor)
                 .foregroundStyle(.white)
                 .fontWeight(.bold)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .roundedCorners()
         }.padding(.horizontal, 25)
     }
 }

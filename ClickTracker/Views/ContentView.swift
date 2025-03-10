@@ -6,7 +6,6 @@ struct ContentView: View {
     @AppStorage("step") private var step = 1.0
     @Environment(\.modelContext) var context
     
-    @State private var isSettingsSheetShown = false
     @State private var isInsertNoteSheetShown = false
     @State private var isCounterResetConfirmShown = false
     
@@ -50,9 +49,14 @@ struct ContentView: View {
                 .tabItem {
                     Label("Clicker", systemImage: "hand.tap.fill")
                 }
-                NotesListView().tabItem {
-                    Label("Notes", systemImage: "note.text")
-                }
+                NotesListView()
+                    .tabItem {
+                        Label("Notes", systemImage: "note.text")
+                    }
+                SettingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gear")
+                    }
             }
             .onChange(of: step, { oldValue, newValue in
                 if newValue <= 0 {
@@ -60,11 +64,6 @@ struct ContentView: View {
                 }
             })
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Reset count", systemImage: "0.circle") {
-                        isCounterResetConfirmShown.toggle()
-                    }
-                }
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Delete notes", systemImage: "trash.circle") {
                         do {
@@ -74,17 +73,6 @@ struct ContentView: View {
                         }
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Settings", systemImage: "gear") {
-                        isSettingsSheetShown.toggle()
-                    }
-                }
-            }.sheet(isPresented: $isSettingsSheetShown) {
-                SettingsView(
-                    isSettingsShown: $isSettingsSheetShown,
-                    step: $step,
-                    unit: $unit
-                )
             }.sheet(isPresented: $isInsertNoteSheetShown, content: {
                 InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown, counter: counter)
             })
