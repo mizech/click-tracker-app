@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct LargeButtonView: View {
-    @Binding var counter: Double
-    
     var caption: String
     var sysImg: String
     var bgColor: Color
@@ -25,7 +23,6 @@ struct LargeButtonView: View {
 
 #Preview {
     LargeButtonView(
-        counter: .constant(1),
         caption: "Caption",
         sysImg: "plus",
         bgColor: .green

@@ -15,7 +15,7 @@ struct ContentView: View {
                 VStack { 
                     Text("^[\(counter, specifier: "%.2f") \(unit)](inflect: true)").font(.largeTitle)
                     Spacer()
-                    LargeButtonView(
+                    CountButtonView(
                         counter: $counter,
                         caption: String(format: "%.2f", step),
                         sysImg: "plus",
@@ -23,7 +23,7 @@ struct ContentView: View {
                     ) {
                         counter += step
                     }.padding(.bottom)
-                    LargeButtonView(
+                    CountButtonView(
                         counter: $counter,
                         caption: String(format: "%.2f", step),
                         sysImg: "minus",
@@ -36,7 +36,6 @@ struct ContentView: View {
                     }
                     Spacer()
                     LargeButtonView(
-                        counter: $counter,
                         caption: "Add note",
                         sysImg: "note.text.badge.plus",
                         bgColor: .orange
