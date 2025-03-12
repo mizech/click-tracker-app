@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct InsertNoteView: View {
+    @AppStorage("title") private var title = "Counting units"
     @AppStorage("unit") private var unit = "Objects"
+    @AppStorage("step") private var step = 1.0
     
     @Binding var isInsertNoteSheetShown: Bool
     
@@ -21,8 +23,10 @@ struct InsertNoteView: View {
                     Button {
                         context.insert(
                             Note(
+                                title: title,
                                 text: currText,
                                 counter: counter,
+                                step: step,
                                 unit: unit
                             )
                         )

@@ -1,18 +1,39 @@
-//
-//  NoteDetailsView.swift
-//  ClickTracker
-//
-//  Created by Michael on 08.03.25.
-//
-
 import SwiftUI
 
 struct NoteDetailsView: View {
+    var note: Note
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Counter: \(String(format: "%.2f", note.counter)) \(note.unit)")
+                .font(.title)
+            if note.text.count > 0 {
+                Text(note.text)
+                    .font(.title2)
+            }
+            Text("Used step length: \(String(format: "%.2f", note.step))")
+                .font(.subheadline)
+            if note.title.count > 0 {
+                Text("Belongs to: \(note.title)")
+                    .font(.subheadline)
+            }
+            Text("Created: \(note.createdAt.formatted(date: .complete, time: .shortened))")
+                .font(.subheadline)
+            Text("Modified: \(note.modifiedAt.formatted(date: .complete, time: .shortened))")
+                .font(.subheadline)
+            Spacer()
+        }.padding()
     }
 }
 
 #Preview {
-    NoteDetailsView()
+    NoteDetailsView(
+        note: Note(
+            title: "Title_001",
+            text: "Text_001",
+            counter: 0,
+            step: 1.0,
+            unit: "Gram"
+        )
+    )
 }

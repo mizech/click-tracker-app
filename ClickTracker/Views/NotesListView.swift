@@ -10,12 +10,12 @@ struct NotesListView: View {
         List {
             ForEach(notes) { note in
                 NavigationLink {
-                    NoteDetailsView()
+                    NoteDetailsView(note: note)
                 } label: {
                     HStack {
                         Text(note.createdAt, format: .dateTime)
                             .bold()
-                        Text("^[\(note.counter) \(note.unit)](inflect: true)")
+                        Text("^[\(String(format: "%.2f", note.counter)) \(note.unit)](inflect: true)")
                     }
                 }
             }.onDelete { indexSet in
