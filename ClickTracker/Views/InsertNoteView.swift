@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct InsertNoteView: View {
-    @Environment(\.modelContext) var context
     @AppStorage("unit") private var unit = "Objects"
+    
     @Binding var isInsertNoteSheetShown: Bool
+    
+    @Environment(\.modelContext) var context
+    
     @State var currText = ""
     
     var counter: Double
@@ -23,6 +26,11 @@ struct InsertNoteView: View {
                                 unit: unit
                             )
                         )
+                        do {
+                            try context.save()
+                        } catch {
+                            print(error)
+                        }
                         isInsertNoteSheetShown.toggle()
                     } label: {
                         Text("Submit")

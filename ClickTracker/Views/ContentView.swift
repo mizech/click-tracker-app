@@ -1,18 +1,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("title") private var title = "Counting units"
     @AppStorage("counter") private var counter: Double = 0
-    @AppStorage("unit") private var unit = "Objects"
+    @AppStorage("unit") private var unit = "unit"
     @AppStorage("step") private var step = 1.0
+    
     @Environment(\.modelContext) var context
     
     @State private var isInsertNoteSheetShown = false
-    @State private var isCounterResetConfirmShown = false
     
     var body: some View {
         NavigationStack {
             TabView {
-                VStack { 
+                VStack {
                     Text("^[\(counter, specifier: "%.2f") \(unit)](inflect: true)").font(.largeTitle)
                     Spacer()
                     CountButtonView(
@@ -38,7 +39,7 @@ struct ContentView: View {
                     LargeButtonView(
                         caption: "Add note",
                         sysImg: "note.text.badge.plus",
-                        bgColor: .orange
+                        bgColor: .green
                     ) {
                         isInsertNoteSheetShown.toggle()
                     }
@@ -57,33 +58,15 @@ struct ContentView: View {
                         Label("Settings", systemImage: "gear")
                     }
             }
+            .navigationTitle(title)
             .onChange(of: step, { oldValue, newValue in
                 if newValue <= 0 {
                     step = oldValue
                 }
             })
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Delete notes", systemImage: "trash.circle") {
-                        do {
-                            try context.delete(model: Note.self)
-                        } catch {
-                            print(error)
-                        }
-                    }
-                }
-            }.sheet(isPresented: $isInsertNoteSheetShown, content: {
+            .sheet(isPresented: $isInsertNoteSheetShown, content: {
                 InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown, counter: counter)
             })
-            .confirmationDialog(
-                "Are you sure?",
-                isPresented: $isCounterResetConfirmShown
-            ) {
-                Button("Reset counter", role: .destructive) {
-                    counter = 0
-                }
-                Button("Cancel", role: .cancel) {}
-            }
         }
     }
 }
