@@ -22,9 +22,7 @@ struct InsertNoteView: View {
                 Section {
                     Button {
                         context.insert(
-                            Note(
-                                title: title,
-                                text: currText,
+                            Note(text: currText,
                                 counter: counter,
                                 step: step,
                                 unit: unit

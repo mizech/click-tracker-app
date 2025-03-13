@@ -3,7 +3,6 @@ import SwiftData
 
 @Model
 final class Note {
-    var title: String
     var text: String
     var counter: Double
     var step: Double
@@ -12,13 +11,11 @@ final class Note {
     var modifiedAt: Date
     
     init(
-        title: String,
         text: String = "",
         counter: Double,
         step: Double,
         unit: String
     ) {
-        self.title = title
         self.text = text
         self.counter = counter
         self.step = step

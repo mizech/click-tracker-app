@@ -8,15 +8,11 @@ struct NoteDetailsView: View {
             Text("Counter: \(String(format: "%.2f", note.counter)) \(note.unit)")
                 .font(.title)
             if note.text.count > 0 {
-                Text(note.text)
+                Text("Note: \(note.text)")
                     .font(.title2)
             }
             Text("Used step length: \(String(format: "%.2f", note.step))")
                 .font(.subheadline)
-            if note.title.count > 0 {
-                Text("Belongs to: \(note.title)")
-                    .font(.subheadline)
-            }
             Text("Created: \(note.createdAt.formatted(date: .complete, time: .shortened))")
                 .font(.subheadline)
             Text("Modified: \(note.modifiedAt.formatted(date: .complete, time: .shortened))")
@@ -29,7 +25,6 @@ struct NoteDetailsView: View {
 #Preview {
     NoteDetailsView(
         note: Note(
-            title: "Title_001",
             text: "Text_001",
             counter: 0,
             step: 1.0,
