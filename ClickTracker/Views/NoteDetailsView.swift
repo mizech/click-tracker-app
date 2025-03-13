@@ -1,7 +1,13 @@
+import SwiftData
 import SwiftUI
 
 struct NoteDetailsView: View {
     var note: Note
+    
+    @Environment(\.modelContext) var context
+    
+    @State var isEditSheetShown = false
+    @State var currText = ""
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -19,6 +25,57 @@ struct NoteDetailsView: View {
                 .font(.subheadline)
             Spacer()
         }.padding()
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isEditSheetShown.toggle()
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                }
+            }
+            .sheet(isPresented: $isEditSheetShown) {
+                NavigationStack {
+                    Form {
+                        Section("Description") {
+                            TextField("Enter a description (optional)", text: $currText)
+                        }
+                        Section {
+                            Button {
+                                note.text = currText
+                                
+                                do {
+                                    try context.save()
+                                    isEditSheetShown.toggle()
+                                } catch {
+                                    print(error)
+                                }
+                            } label: {
+                                Text("Submit")
+                                    .padding()
+                                    .frame(height: 40)
+                                    .frame(maxWidth: .infinity)
+                                    .background(.blue)
+                                    .foregroundStyle(.white)
+                                    .bold()
+                                    .roundedCorners()
+                            }
+                        }
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                isEditSheetShown.toggle()
+                            } label: {
+                                Label("Close", systemImage: "heart")
+                            }
+
+                        }
+                    }
+                }            }
+            .onAppear() {
+                currText = note.text
+            }
     }
 }
 

@@ -14,7 +14,7 @@ struct SettingsView: View {
     @State private var strStep = "1"
     @State private var isFormInvalid = false
     @State private var isPopoverVisible = false
-    @State private var popOverTitle = "Reset done"
+    @State private var popOverTitle = "Done"
     @State private var popOverMessage = ""
     
     var body: some View {
