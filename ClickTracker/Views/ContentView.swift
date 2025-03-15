@@ -8,11 +8,12 @@ struct ContentView: View {
     
     @Environment(\.modelContext) var context
     
+    @State var selection = 1
     @State private var isInsertNoteSheetShown = false
     
     var body: some View {
         NavigationStack {
-            TabView {
+            TabView(selection: $selection) {
                 VStack {
                     Text("^[\(counter, specifier: "%.2f") \(unit)](inflect: true)").font(.largeTitle)
                     Spacer()
@@ -48,17 +49,17 @@ struct ContentView: View {
                 .padding()
                 .tabItem {
                     Label("Clicker", systemImage: "hand.tap.fill")
-                }
+                }.tag(1)
                 NotesListView()
                     .tabItem {
                         Label("Notes", systemImage: "note.text")
-                    }
+                    }.tag(2)
                 SettingsView()
                     .tabItem {
                         Label("Settings", systemImage: "gear")
-                    }
-            }
-            .navigationTitle(title)
+                    }.tag(3)
+            }.navigationTitle(selection == 3 ? "Settings" : title)
+                .navigationBarTitleDisplayMode(.inline)
             .onChange(of: step, { oldValue, newValue in
                 if newValue <= 0 {
                     step = oldValue

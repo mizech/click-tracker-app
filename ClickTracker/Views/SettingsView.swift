@@ -1,6 +1,10 @@
 import SwiftData
 import SwiftUI
 
+enum FocusedTextField {
+    case title, unit, step
+}
+
 struct SettingsView: View {
     @AppStorage("title") private var title = "Counting units"
     @AppStorage("counter") private var counter: Double = 0
@@ -8,6 +12,8 @@ struct SettingsView: View {
     @AppStorage("step") private var step = 1.0
     
     @Environment(\.modelContext) private var context
+    
+    @FocusState private var focusedTextField: FocusedTextField?
     
     @State private var isResetCounterConfirmShown = false
     @State private var isDeleteNotesConfirmShown = false
@@ -21,12 +27,25 @@ struct SettingsView: View {
         Form {
             Section("Title (name your counting)") {
                 TextField("Example: Cars passing on dd.mm.yyyy", text: $title)
+                    .focused($focusedTextField, equals: .title)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button {
+                                focusedTextField = nil
+                            } label: {
+                                Label("Done", systemImage: "keyboard.chevron.compact.down.fill")
+                            }
+                        }
+                    }
             }
             Section("Unit of measurement (singular)") {
                 TextField("Gram, liter, Car, Pedestrian ...", text: $unit)
+                    .focused($focusedTextField, equals: .unit)
             }
             Section("Step length (integer or decimal number)") {
                 TextField("1, 5, 31.1, 0.75 ...", text: $strStep)
+                    .focused($focusedTextField, equals: .step)
                     .keyboardType(.decimalPad)
                     .font(.title)
             }
@@ -98,6 +117,7 @@ struct SettingsView: View {
             }
         }.onAppear {
             UITextField.appearance().clearButtonMode = .whileEditing
+            strStep = String(step)
         }
     }
 }
