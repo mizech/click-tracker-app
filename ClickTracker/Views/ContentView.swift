@@ -60,14 +60,14 @@ struct ContentView: View {
                     }.tag(3)
             }.navigationTitle(selection == 3 ? "Settings" : title)
                 .navigationBarTitleDisplayMode(.inline)
-            .onChange(of: step, { oldValue, newValue in
-                if newValue <= 0 {
-                    step = oldValue
-                }
-            })
-            .sheet(isPresented: $isInsertNoteSheetShown, content: {
-                InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown, counter: counter)
-            })
+                .onChange(of: step, { oldValue, newValue in
+                    if newValue <= 0 {
+                        step = oldValue
+                    }
+                })
+                .sheet(isPresented: $isInsertNoteSheetShown, content: {
+                    InsertNoteView(isInsertNoteSheetShown: $isInsertNoteSheetShown, counter: counter)
+                })
         }
     }
 }
