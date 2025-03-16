@@ -36,6 +36,12 @@ struct NotesListView: View {
     }
 }
 
-#Preview {
+#Preview("English") {
     NotesListView()
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+
+#Preview("German") {
+    NotesListView()
+        .environment(\.locale, Locale(identifier: "DE"))
 }
