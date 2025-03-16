@@ -7,24 +7,32 @@ struct NotesListView: View {
     @Query(sort: \Note.createdAt) var notes: [Note]
     
     var body: some View {
-        List {
-            ForEach(notes) { note in
-                NavigationLink {
-                    NoteDetailsView(note: note)
-                } label: {
-                    HStack {
-                        Text(note.createdAt, format: .dateTime)
-                            .bold()
-                        Text("^[\(String(format: "%.2f", note.counter)) \(note.unit)](inflect: true)")
+        Group {
+            if notes.count > 0 {
+                List {
+                    ForEach(notes) { note in
+                        NavigationLink {
+                            NoteDetailsView(note: note)
+                        } label: {
+                            HStack {
+                                Text(note.createdAt, format: .dateTime)
+                                    .bold()
+                                Text("^[\(String(format: "%.2f", note.counter)) \(note.unit)](inflect: true)")
+                            }
+                        }
+                    }.onDelete { indexSet in
+                        for index in indexSet {
+                            context.delete(notes[index])
+                        }
                     }
-                }
-            }.onDelete { indexSet in
-                for index in indexSet {
-                    context.delete(notes[index])
+                }.listStyle(.plain)
+            } else {
+                VStack {
+                    Label("There are no notes.", systemImage: "clipboard")
                 }
             }
-        }.listStyle(.plain)
-            .navigationTitle("Notes")
+        }
+        .navigationTitle("Notes")
     }
 }
 
