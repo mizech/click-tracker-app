@@ -56,17 +56,17 @@ struct SettingsView: View {
                         .foregroundStyle(.red)
                         .bold()
                 }
-            }
+            } 
             Section("Reset") {
                 LargeButtonView(
-                    caption: "Counter to 0",
+                    caption: NSLocalizedString("Counter to 0", comment: "Button Label"),
                     sysImg: "0.circle",
                     bgColor: .orange
                 ) {
                     isResetCounterConfirmShown.toggle()
                 }
                 LargeButtonView(
-                    caption: "Delete notes",
+                    caption: NSLocalizedString("Delete notes", comment: "Button Label"),
                     sysImg: "trash.circle",
                     bgColor: .red
                 ) {

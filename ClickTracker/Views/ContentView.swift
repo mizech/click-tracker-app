@@ -38,7 +38,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     LargeButtonView(
-                        caption: "Add note",
+                        caption: NSLocalizedString("Add note", comment: "Button Label"),
                         sysImg: "note.text.badge.plus",
                         bgColor: .green
                     ) {

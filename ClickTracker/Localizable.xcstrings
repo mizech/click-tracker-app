@@ -43,6 +43,17 @@
         }
       }
     },
+    "Add note" : {
+      "comment" : "Button Label",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notiz hinzufügen"
+          }
+        }
+      }
+    },
     "Are you sure?" : {
       "localizations" : {
         "de" : {
@@ -79,6 +90,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Schliessen"
+          }
+        }
+      }
+    },
+    "Counter to 0" : {
+      "comment" : "Button Label",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zähler auf 0"
           }
         }
       }
@@ -125,6 +147,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alle Notizen löschen?"
+          }
+        }
+      }
+    },
+    "Delete notes" : {
+      "comment" : "Button Label",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notizen löschen"
           }
         }
       }
