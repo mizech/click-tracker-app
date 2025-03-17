@@ -20,7 +20,7 @@ struct SettingsView: View {
     @State private var strStep = "1"
     @State private var isFormInvalid = false
     @State private var isPopoverVisible = false
-    @State private var popOverTitle = "Done"
+    @State private var popOverTitle = NSLocalizedString("Done", comment: "popOver-Headline")
     @State private var popOverMessage = ""
     
     var body: some View {
@@ -56,7 +56,7 @@ struct SettingsView: View {
                         .foregroundStyle(.red)
                         .bold()
                 }
-            } 
+            }
             Section("Reset") {
                 LargeButtonView(
                     caption: NSLocalizedString("Counter to 0", comment: "Button Label"),
@@ -79,7 +79,7 @@ struct SettingsView: View {
         ) {
             Button("Reset current counter?", role: .destructive) {
                 counter = 0
-                popOverMessage = "The counter is now 0."
+                popOverMessage = NSLocalizedString("The counter is now 0.", comment: "popOver-message")
                 isPopoverVisible.toggle()
             }
             Button("Cancel", role: .cancel) {
@@ -90,7 +90,7 @@ struct SettingsView: View {
                 do {
                     try context.delete(model: Note.self)
                     try context.save()
-                    popOverMessage = "The notes-list is now empty."
+                    popOverMessage = NSLocalizedString("The notes-list is now empty.", comment: "popOver-message")
                     isPopoverVisible.toggle()
                 } catch {
                     print(error)

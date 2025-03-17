@@ -173,6 +173,7 @@
       }
     },
     "Done" : {
+      "comment" : "popOver-Headline",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -318,6 +319,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Übernehmen"
+          }
+        }
+      }
+    },
+    "The counter is now 0." : {
+      "comment" : "popOver-message",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zähler auf 0 gesetzt."
+          }
+        }
+      }
+    },
+    "The notes-list is now empty." : {
+      "comment" : "popOver-message",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notizen wurden gelöscht."
           }
         }
       }
