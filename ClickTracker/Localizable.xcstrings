@@ -3,6 +3,12 @@
   "strings" : {
     "^[%.2f %@](inflect: true)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%1$.2f %2$@](inflect: true)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -13,6 +19,12 @@
     },
     "^[%@ %@](inflect: true)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%1$@ %2$@](inflect: true)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -73,6 +85,12 @@
     },
     "Counter: %@ %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zähler: %1$@%2$@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -92,7 +110,14 @@
       }
     },
     "Created: %@" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellt: %@"
+          }
+        }
+      }
     },
     "Delete all notes?" : {
       "localizations" : {

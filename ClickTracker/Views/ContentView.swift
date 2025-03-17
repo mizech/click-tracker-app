@@ -48,7 +48,7 @@ struct ContentView: View {
                 }
                 .padding()
                 .tabItem {
-                    Label("Clicker", systemImage: "hand.tap.fill")
+                    Label(String(format: NSLocalizedString("Clicker", comment: "")), systemImage: "hand.tap.fill")
                 }.tag(1)
                 NotesListView()
                     .tabItem {
