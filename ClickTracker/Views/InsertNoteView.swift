@@ -23,10 +23,10 @@ struct InsertNoteView: View {
                     Button {
                         context.insert(
                             Note(text: currText,
-                                counter: counter,
-                                step: step,
-                                unit: unit
-                            )
+                                 counter: counter,
+                                 step: step,
+                                 unit: unit
+                                )
                         )
                         do {
                             try context.save()

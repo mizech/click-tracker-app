@@ -69,7 +69,6 @@ struct NoteDetailsView: View {
                             } label: {
                                 Label("Close", systemImage: "heart")
                             }
-
                         }
                     }
                 }            }
